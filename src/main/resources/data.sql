@@ -1,0 +1,1 @@
+INSERT INTO copy VALUES (1, '120.10.123.14', 'text to copy test', 'AZERTY');
