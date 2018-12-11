@@ -1,9 +1,11 @@
 package org.nynl.easycopypast.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name="USER")
+@Table(name="USERS")
 public class User {
 
     @Id
@@ -11,9 +13,10 @@ public class User {
     private String username;
     @Column(name = "PASSWORD", nullable = false)
     private String password;
-    @Column(name = "ROLE", nullable = false)
-    private String role;
-
+    @Column(name = "ENABLED", nullable = false)
+    private boolean enabled;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Roles> roles = new HashSet<>();
 
     public String getPassword() {
         return password;
@@ -23,19 +26,27 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Set<Roles> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Roles> roles) {
+        this.roles = roles;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
