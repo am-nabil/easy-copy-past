@@ -9,13 +9,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Service("userDetailsService")
 public class UserServiceImpl implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
 
+    @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.getUserByUsername(username);
@@ -23,11 +25,14 @@ public class UserServiceImpl implements UserDetailsService {
         if (user != null) {
 
             builder = org.springframework.security.core.userdetails.User.withUsername(username);
-            builder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
-            builder.roles(user.getRole());
+            builder.password(user.getPassword());
+            String[] roles = user.getRoles()
+                    .stream().map(a -> a.getRole()).toArray(String[]::new);
+            builder.roles(roles);
         } else {
             throw new UsernameNotFoundException("User not found.");
         }
         return builder.build();
     }
+
 }

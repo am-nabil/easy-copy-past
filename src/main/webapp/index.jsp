@@ -4,10 +4,10 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Easy Copy Past</title>
+    <title>Spring Security 5</title>
 </head>
 <body>
-<h1>Hello !</h1>
+<h1>Spring Security - Custom UserDetailsService Example</h1>
 <h2>${message}</h2>
 
 <form action="/logout" method="post">

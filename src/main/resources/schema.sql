@@ -7,10 +7,16 @@ CREATE TABLE copy (
   USER_ID VARCHAR(50) NOT NULL
 );
 
-DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS users;
 
-CREATE TABLE user (
-  username VARCHAR (20) PRIMARY KEY,
-  password VARCHAR (20) NOT NULL,
-  role VARCHAR(255) NOT NULL
+create table users(
+	username varchar(50) not null primary key,
+	password varchar(100) not null,
+	enabled boolean not null
 );
+create table roles (
+	username varchar(50) not null,
+	role varchar(50) not null,
+	constraint fk_roles_users foreign key(username) references users(username)
+);
+create unique index ix_role_username on roles (username,role);
