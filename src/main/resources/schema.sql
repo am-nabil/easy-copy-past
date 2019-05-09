@@ -1,12 +1,3 @@
-DROP TABLE IF EXISTS copy;
-
-CREATE TABLE copy (
-  ID IDENTITY PRIMARY KEY,
-  MACHINE_IP VARCHAR (20) NOT NULL,
-  CONTENT VARCHAR(255) NOT NULL,
-  USER_ID VARCHAR(50) NOT NULL
-);
-
 DROP TABLE IF EXISTS users;
 
 create table users(
@@ -14,6 +5,17 @@ create table users(
 	password varchar(100) not null,
 	enabled boolean not null
 );
+
+DROP TABLE IF EXISTS copy;
+
+CREATE TABLE copy (
+  ID IDENTITY PRIMARY KEY,
+  MACHINE_IP VARCHAR (20) NOT NULL,
+  CONTENT VARCHAR(255) NOT NULL,
+  username VARCHAR(50) NOT NULL,
+  constraint fk_copy_users foreign key(username) references users(username)
+);
+
 create table roles (
 	username varchar(50) not null,
 	role varchar(50) not null,

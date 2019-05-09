@@ -13,8 +13,8 @@ public class Copy {
     private String machineIP;
     @Column(name = "CONTENT", nullable = false)
     private String content;
-    @Column(name = "USER_ID", nullable = false)
-    private String userId;
+    @Column(name = "USERNAME", nullable = false)
+    private String username;
 
     public int getId() {
         return id;
@@ -41,10 +41,10 @@ public class Copy {
     }
 
     public String getUserId() {
-        return userId;
+        return username;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserId(String username) {
+        this.username = username;
     }
 }
