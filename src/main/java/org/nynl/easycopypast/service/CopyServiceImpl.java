@@ -5,6 +5,7 @@ import org.nynl.easycopypast.repository.CopyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -20,5 +21,16 @@ public class CopyServiceImpl implements CopyService {
         return copyRepository.getCopies();
     }
 
+    @Override
+    public void copy(String username, String content, String machine_ip) {
+        if(!StringUtils.isEmpty(content)){
+            copyRepository.updateOrInsertCopy(username, content, machine_ip);
+        }
+    }
+
+    @Override
+    public String paste(String username) {
+      return copyRepository.paste(username).getContent();
+    }
 
 }

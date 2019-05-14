@@ -10,25 +10,18 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/copy")
-public class CopyController {
+@RequestMapping(value = "/paste")
+public class PasteController {
 
     @Autowired
     CopyService copyService;
 
     @GetMapping(value = "/")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @ResponseBody
-    public void copy(Principal principal, @RequestHeader("CONTENT") String content, @RequestHeader("MACHINE_IP") String machine_ip ){
-        String username = principal.getName();
-        copyService.copy(username, content, machine_ip);
-    }
-
-    @GetMapping(value = "/all")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<Copy> getAllCopies(){
-        return copyService.getcopies();
+    public String paste(Principal principal){
+        String username = principal.getName();
+        return copyService.paste(username);
     }
 
 }
